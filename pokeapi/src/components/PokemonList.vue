@@ -17,6 +17,7 @@ onMounted(() => {
   fetchPokemons();
 });
 </script>
+
 <template>
   <div>
     <div v-for="pokemon in pokemons" :key="pokemon.name" class="pokemon-item">
