@@ -1,78 +1,39 @@
 <script setup>
-import { ref, onMounted } from 'vue';
 
-const pokemons = ref([]);
-const pokemonsDetails = ref({});
-const showDetailPopup = ref(false);
-const showEditPopup = ref(false);
-const selectedPokemon = ref({});
+import { onMounted } from 'vue';
+import { useStore } from 'vuex';
 
-async function fetchPokemons() {
-  try {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon');
-    const data = await response.json();
-    for (const pokemon of data.results) {
-      const pokemonDetailResponse = await fetch(pokemon.url);
-      const pokemonDetailData = await pokemonDetailResponse.json();
-      pokemonsDetails.value[pokemon.name] = {
-        name: pokemonDetailData.name,
-        type: pokemonDetailData.types[0].type.name,
-        ability: pokemonDetailData.abilities[0].ability.name,
-        image: pokemonDetailData.sprites.front_default
-      }
-    }
-    pokemons.value = data.results;
-  } catch (error) {
-    console.error('Error fetching pokemons:', error);
-  }
-}
-
-function openDetailPopup(pokemon) {
-  selectedPokemon.value = pokemonsDetails.value[pokemon];
-  showDetailPopup.value = true;
-}
-
-function closeDetailPopup() {
-  showDetailPopup.value = false;
-}
-
-function openEditPopup(pokemon) {
-  selectedPokemon.value = pokemonsDetails.value[pokemon];
-  showEditPopup.value = true;
-}
-
-function closeEditPopup() {
-  showEditPopup.value = false;
-}
+const store = useStore();
 
 onMounted(() => {
-  fetchPokemons();
-});
+  store.dispatch('fetchPokemons');
+})
+
 </script>
 
 <template>
   <div id="PokemonList">
-    <div v-for="pokemon in pokemons" :key="pokemon.name" class="pokemon-item">
-      <span>{{ pokemonsDetails[pokemon.name].name }}</span>
-      <button @click="openDetailPopup(pokemon.name)">Detail</button>
+    <div v-for="pokemon in store.state.pokemons" :key="pokemon.name" class="pokemon-item">
+      <span>{{ store.state.pokemonsDetails[pokemon.name].name }}</span>
+      <button @click="store.mutations.openDetailPopup(pokemon.name)">Detail</button>
       <button @click="openEditPopup(pokemon.name)">Edit</button>
     </div>
   </div>
   <div id="PopupContainer">
-  <div v-if="showDetailPopup" id="PokemonDetailPopup">
+  <div v-if="store.state.showDetailPopup" id="PokemonDetailPopup">
     <div class="popup-content">
-      <h2>{{ selectedPokemon.name }}</h2>
-      <p>Type: {{ selectedPokemon.type }}</p>
-      <p>Habilité: {{ selectedPokemon.ability }}</p>
-      <img :src="selectedPokemon.image" alt="Pokemon Image" />
+      <h2>{{ store.state.selectedPokemon.name }}</h2>
+      <p>Type: {{ store.state.selectedPokemon.type }}</p>
+      <p>Habilité: {{ store.state.selectedPokemon.ability }}</p>
+      <img :src="store.state.selectedPokemon.image" alt="Pokemon Image" />
       <button @click="closeDetailPopup">Close</button>
     </div>
   </div>
-  <div v-if="showEditPopup" id="PokemonEditPopup">
+  <div v-if="store.state.showEditPopup" id="PokemonEditPopup">
     <div class="popup-content">
-      <p>Nom : <input v-model="selectedPokemon.name" placeholder="Tapez ici"></p>
-      <p>Type : <input v-model="selectedPokemon.type" placeholder="Tapez ici"></p>
-      <p>Habilité : <input v-model="selectedPokemon.ability" placeholder="Tapez ici"></p>
+      <p>Nom : <input v-model="store.state.selectedPokemon.name" placeholder="Tapez ici"></p>
+      <p>Type : <input v-model="store.state.selectedPokemon.type" placeholder="Tapez ici"></p>
+      <p>Habilité : <input v-model="store.state.selectedPokemon.ability" placeholder="Tapez ici"></p>
       <button @click="closeEditPopup">Close</button>
     </div>
   </div>
