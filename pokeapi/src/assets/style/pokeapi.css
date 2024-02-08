@@ -1,0 +1,97 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #1c1c1e;
+    color: #fff;
+}
+
+#app {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+#PokemonList {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pokemon-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
+}
+
+.pokemon-item span {
+    flex: 1;
+    color: #fff;
+}
+
+button {
+    background-color: #0078d4;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    margin-left: 10px;
+}
+
+button:hover {
+    background-color: #005a9e;
+}
+
+#PopupContainer {
+    width: 35%;
+}
+
+#PokemonDetailPopup,
+#PokemonEditPopup {
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #382d2d;
+    margin-bottom: 20px;
+    position: fixed;
+}
+
+#PokemonDetailPopup {
+    top: 20px;
+    right: 20px;
+}
+
+#PokemonEditPopup {
+    bottom: 20px;
+    right: 20px;
+}
+
+.popup-content {
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #2a2a2e;
+    color: #fff;
+}
+
+.popup-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+.popup-content input {
+    width: auto;
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+#PopupContainer button {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+}

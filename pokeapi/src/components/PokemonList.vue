@@ -58,6 +58,7 @@ onMounted(() => {
       <button @click="openEditPopup(pokemon.name)">Edit</button>
     </div>
   </div>
+  <div id="PopupContainer">
   <div v-if="showDetailPopup" id="PokemonDetailPopup">
     <div class="popup-content">
       <h2>{{ selectedPokemon.name }}</h2>
@@ -69,13 +70,11 @@ onMounted(() => {
   </div>
   <div v-if="showEditPopup" id="PokemonEditPopup">
     <div class="popup-content">
-      <span>Nom :</span>
-      <input v-model="selectedPokemon.name" placeholder="Tapez ici">
-      <span>Type :</span>
-      <input v-model="selectedPokemon.type" placeholder="Tapez ici">
-      <span>Habilité :</span>
-      <input v-model="selectedPokemon.ability" placeholder="Tapez ici">
+      <p>Nom : <input v-model="selectedPokemon.name" placeholder="Tapez ici"></p>
+      <p>Type : <input v-model="selectedPokemon.type" placeholder="Tapez ici"></p>
+      <p>Habilité : <input v-model="selectedPokemon.ability" placeholder="Tapez ici"></p>
       <button @click="closeEditPopup">Close</button>
     </div>
+  </div>
   </div>
 </template>  
