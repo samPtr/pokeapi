@@ -14,9 +14,9 @@ Ouvrir le fichier dist/index.html
 
 ## Avancement
 
-Le projet ne fonctionne pas avec le store. Je pense que celà vient du fait que la boucle for dans mon template de PokemonList se fait en même temps que le fetchPokemon du store qui lui est asynchrone.
+Le projet fonctionne avec le store mais l'image ne s'affiche pas dans la popup de détail.
 
-## Bon projet
+## Projet sans bug
 
 Le projet qui marche a le tag Projet_sans_store.
 

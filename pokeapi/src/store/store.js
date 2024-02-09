@@ -56,8 +56,8 @@ const store = createStore({
     pokemons(state) {
         return state.pokemons;
     },
-    pokemonDetails(state, pokemonName) {
-        return state.pokemonsDetails[pokemonName];
+    pokemonsDetails(state) {
+        return state.pokemonsDetails;
     },
     showDetailPopup(state) {
         return state.showDetailPopup;
