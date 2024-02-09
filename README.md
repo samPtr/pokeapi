@@ -14,10 +14,12 @@ Ouvrir le fichier dist/index.html
 
 ## Avancement
 
-Le projet fonctionne avec le store mais l'image ne s'affiche pas dans la popup de détail.
+Le projet fonctionne avec le store et sans store.
 
-## Projet sans bug
+## Projet
 
-Le projet qui marche a le tag Projet_sans_store.
+Le projet sans store a le tag Projet_sans_store.
+
+Le projet avec store a le tag Projet_avec_store.
 
 <sub>Samuel</sub>

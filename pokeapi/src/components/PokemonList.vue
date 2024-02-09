@@ -9,6 +9,7 @@ const pokemons = computed(() => store.getters.pokemons);
 const showDetailPopup = computed(() => store.getters.showDetailPopup);
 const showEditPopup = computed(() => store.getters.showEditPopup);
 const selectedPokemon = computed(() => store.getters.selectedPokemon);
+const pokemonsDetails = computed(() => store.getters.pokemonsDetails);
 
 const openDetailPopup = (pokemon) => {
   store.commit('openDetailPopup', pokemon);
@@ -35,7 +36,7 @@ onMounted(() => {
 <template>
   <div id="PokemonList">
     <div v-for="(pokemon, index) in pokemons" :key="index" class="pokemon-item">
-      <span>{{ pokemon.name }}</span>
+      <span v-if="pokemonsDetails[pokemon.name]">{{ pokemonsDetails[pokemon.name].name }}</span>
       <button @click="openDetailPopup(pokemon)">Detail</button>
       <button @click="openEditPopup(pokemon)">Edit</button>
     </div>

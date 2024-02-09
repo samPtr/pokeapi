@@ -11,13 +11,14 @@ const store = createStore({
   mutations: {
     openDetailPopup(state, pokemon) {
         state.showDetailPopup = true;
-        state.selectedPokemon = pokemon;
+        state.selectedPokemon = state.pokemonsDetails[pokemon.name];
+        console.log(state.selectedPokemon);
     },
     closeDetailPopup(state){
         state.showDetailPopup = false;
     },
     openEditPopup(state, pokemon) {
-        state.selectedPokemon = pokemon;
+        state.selectedPokemon = state.pokemonsDetails[pokemon.name];
         state.showEditPopup = true;
     },
     closeEditPopup(state) {
@@ -26,7 +27,7 @@ const store = createStore({
     addPokemons(state, pokemons) {
         state.pokemons = pokemons;
     },
-    addPokemonDetails(state, name, details) {
+    addPokemonDetails(state, [name, details]) {
         state.pokemonsDetails[name] = details;
     }
   },
@@ -35,17 +36,18 @@ const store = createStore({
         try {
           const response = await fetch('https://pokeapi.co/api/v2/pokemon');
           const data = await response.json();
-          console.log(data);
           store.commit('addPokemons', data.results)
           for (const pokemon of data.results) {
             const pokemonDetailResponse = await fetch(pokemon.url);
             const pokemonDetailData = await pokemonDetailResponse.json();
-            commit('addPokemonDetails', pokemon.name, {
+            const name = pokemonDetailData.name;
+            const details = {
                 name: pokemonDetailData.name,
                 type: pokemonDetailData.types[0].type.name,
                 ability: pokemonDetailData.abilities[0].ability.name,
                 image: pokemonDetailData.sprites.front_default
-            });
+            }
+            commit('addPokemonDetails', [name, details]);
           }
         } catch (error) {
           console.error('Error fetching pokemons:', error);
